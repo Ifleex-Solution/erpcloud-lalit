@@ -1,0 +1,92 @@
+{
+        "packages": [
+                {
+                        "name": "jmrashed/zkteco",
+                        "version": "1.0.4",
+                        "version_normalized": "1.0.4.0",
+                        "source": {
+                                "type": "git",
+                                "url": "https://github.com/jmrashed/zkteco.git",
+                                "reference": "685fb696be266ec9cc7ed9c71c51998488d2aa66"
+                        },
+                        "dist": {
+                                "type": "zip",
+                                "url": "https://api.github.com/repos/jmrashed/zkteco/zipball/685fb696be266ec9cc7ed9c71c51998488d2aa66",
+                                "reference": "685fb696be266ec9cc7ed9c71c51998488d2aa66",
+                                "shasum": ""
+                        },
+                        "require": {
+                                "php": "^8.0"
+                        },
+                        "require-dev": {
+                                "orchestra/testbench": "^6.0",
+                                "phpunit/phpunit": "^10.0"
+                        },
+                        "time": "2024-05-23T03:59:39+00:00",
+                        "type": "library",
+                        "installation-source": "source",
+                        "autoload": {
+                                "psr-4": {
+                                        "Jmrashed\\Zkteco\\": "src"
+                                }
+                        },
+                        "notification-url": "https://packagist.org/downloads/",
+                        "license": [
+                                "MIT"
+                        ],
+                        "authors": [
+                                {
+                                        "name": "Md Rasheduzzaman",
+                                        "email": "jmrashed@gmail.com"
+                                }
+                        ],
+                        "description": "ZKTeco Package For Laravel. This package provides seamless integration with ZKTeco devices within Laravel applications, enabling communication with attendance devices such as fingerprint, face recognition, or RFID using UDP protocol.",
+                        "support": {
+                                "issues": "https://github.com/jmrashed/zkteco/issues",
+                                "source": "https://github.com/jmrashed/zkteco/tree/1.0.4"
+                        },
+                        "install-path": "../jmrashed/zkteco"
+                },
+                {
+                        "name": "mikey179/vfsstream",
+                        "version": "v1.1.0",
+                        "version_normalized": "1.1.0.0",
+                        "source": {
+                                "type": "git",
+                                "url": "https://github.com/bovigo/vfsStream.git",
+                                "reference": "fc0fe8f4d0b527254a2dc45f0c265567c881d07e"
+                        },
+                        "dist": {
+                                "type": "zip",
+                                "url": "https://api.github.com/repos/bovigo/vfsStream/zipball/fc0fe8f4d0b527254a2dc45f0c265567c881d07e",
+                                "reference": "fc0fe8f4d0b527254a2dc45f0c265567c881d07e",
+                                "shasum": ""
+                        },
+                        "require": {
+                                "php": ">=5.3.0"
+                        },
+                        "time": "2012-08-25T12:49:29+00:00",
+                        "type": "library",
+                        "installation-source": "source",
+                        "autoload": {
+                                "psr-0": {
+                                        "org\\bovigo\\vfs": "src/main/php"
+                                }
+                        },
+                        "notification-url": "https://packagist.org/downloads/",
+                        "license": [
+                                "BSD"
+                        ],
+                        "homepage": "http://vfs.bovigo.org/",
+                        "support": {
+                                "issues": "https://github.com/bovigo/vfsStream/issues",
+                                "source": "https://github.com/bovigo/vfsStream/tree/v1.1.0"
+                        },
+                        "install-path": "../mikey179/vfsstream"
+                }
+        ],
+        "dev": true,
+        "dev-package-names": [
+                "mikey179/vfsstream"
+        ]
+}
