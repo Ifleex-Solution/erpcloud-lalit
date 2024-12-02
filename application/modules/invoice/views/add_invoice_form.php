@@ -45,7 +45,7 @@
 
                             $date = date('Y-m-d');
                             ?>
-                            <input class=" form-control" readonly type="text" size="50" name="invoice_date" id="date" required value="<?php echo html_escape($date); ?>" tabindex="4" />
+                            <input class=" form-control" readonly type="text" size="50" name="invoice_date" id="date" required value="<?php echo html_escape($date); ?>" />
                         </div>
                         <!-- <div class="col-sm-2">
                             <input type="text" id="add_item" class="form-control" placeholder="Barcode or QR-code scan here">
@@ -1021,7 +1021,7 @@
                     "' required tabindex='" + tab1 + "' readonly='readonly'><input type='hidden' class='common_product autocomplete_hidden_value  product_id_" + count +
                     "' name='product_id[]'  id='product_id_" + count + "'/></td><td><input class='form-control text-right common_name unit_" + count +
                     " valid'  id='unit_type_" + count + "' value='None' readonly='' aria-invalid='false' type='text'></td>" +
-                    "<td><div style='position: relative; display: inline-block;'><input class='form-control' type='text' id='searchInput_" + count + "' tabindex='" + tab3 + "' placeholder='Employee Id...' onkeyup='handleEmployeeKeyPress(event," + count + ")'  autocomplete='off' /><input type='text' name='employee_id[]' id='employeeId_" + count + "' hidden /><div id='searchResults_" + count + "' style='  width: 100%;  max-height: 150px;  overflow-y: auto; border: 1px solid #ddd; position: absolute;  top: 100%;  left: 0;  z-index: 1000;  background-color: #fff;border-radius: 4px;'></div></div></td>" +
+                    "<td><div style='position: relative; display: inline-block;'><input class='form-control' type='text' id='searchInput_" + count + "' placeholder='Employee Id...' onkeyup='handleEmployeeKeyPress(event," + count + ")'  autocomplete='off' /><input type='text' name='employee_id[]' id='employeeId_" + count + "' hidden /><div id='searchResults_" + count + "' style='  width: 100%;  max-height: 150px;  overflow-y: auto; border: 1px solid #ddd; position: absolute;  top: 100%;  left: 0;  z-index: 1000;  background-color: #fff;border-radius: 4px;'></div></div></td>" +
                     "<td> <input type='text' name='product_quantity[]' value='1' required='required' onkeyup='bdtask_invoice_quantitycalculate(" +
                     count + ",event);' onchange='bdtask_invoice_quantitycalculate(" + count + ",event);' id='total_qntt_" + count + "' class='common_qnt total_qntt_" + count + " form-control text-right'  placeholder='0.00' min='0' tabindex='" + tab3 + "'/></td>";
 
@@ -1061,7 +1061,7 @@
                     "' required tabindex='" + tab1 + "' readonly='readonly'><input type='hidden' class='common_product autocomplete_hidden_value  product_id_" + count +
                     "' name='product_id[]'  id='product_id_" + count + "'/></td><td><input class='form-control text-right common_name unit_" + count +
                     " valid'  id='unit_type_" + count + "' value='None' readonly='' aria-invalid='false' type='text'></td>" +
-                    "<td><div style='position: relative; display: inline-block;'><input class='form-control' type='text' id='searchInput_" + count + "' tabindex='" + tab3 + "' placeholder='Employee Id...' onkeyup='handleEmployeeKeyPress(event," + count + ")'  autocomplete='off' /><input type='text' name='employee_id[]' id='employeeId_" + count + "' hidden /><div id='searchResults_" + count + "' style='width: 100%;  max-height: 150px;  overflow-y: auto; border: 1px solid #ddd; position: absolute;  top: 100%;  left: 0;  z-index: 1000;  background-color: #fff;border-radius: 4px;'></div></div></td>" +
+                    "<td><div style='position: relative; display: inline-block;'><input class='form-control' type='text' id='searchInput_" + count + "'  placeholder='Employee Id...' onkeyup='handleEmployeeKeyPress(event," + count + ")'  autocomplete='off' /><input type='text' name='employee_id[]' id='employeeId_" + count + "' hidden /><div id='searchResults_" + count + "' style='width: 100%;  max-height: 150px;  overflow-y: auto; border: 1px solid #ddd; position: absolute;  top: 100%;  left: 0;  z-index: 1000;  background-color: #fff;border-radius: 4px;'></div></div></td>" +
                     "<td> <input type='text' name='product_quantity[]' value='-1' required='required' onkeyup='bdtask_invoice_quantitycalculate(" +
                     count + ",event);' onchange='bdtask_invoice_quantitycalculate(" + count + ",event);' id='total_qntt_" + count + "' class='common_qnt total_qntt_" + count + " form-control text-right'  placeholder='0.00' min='0' tabindex='" + tab3 + "'/></td>";
                 if (data.unit == "m") {
@@ -1130,9 +1130,9 @@
 
 
     }
-   
+
     function isElementFrozen(element) {
-        
+
         // Check if the element is disabled or readonly
         if (element.disabled || element.readOnly) {
             return true;
@@ -1154,12 +1154,26 @@
 
 
     function bdtask_invoice_quantitycalculate(item, e) {
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter' || e.key === 'ArrowLeft') {
             e.preventDefault();
             count = 1;
-            let nextElement = document.querySelector('[tabindex="' + (parseInt(e.target.tabIndex) + count) + '"]');
+            let tcount = 0;
+            if (e.key === 'ArrowLeft') {
+                tcount = parseInt(e.target.tabIndex) - count
+            } else {
+                tcount = parseInt(e.target.tabIndex) + count
 
-            if (parseInt(e.target.tabIndex) + count == 9) {
+            }
+            let nextElement = document.querySelector('[tabindex="' + tcount + '"]');
+            if (e.key === 'ArrowLeft') {
+                if (tcount == 3) {
+                    let element2 = document.getElementById("searchInput_" + item);
+                    element2.focus();
+                    element2.select();
+                    return;
+                }
+            }
+            if (tcount == 9) {
                 if ($("#employeeId_" + item).val() != "") {
                     arrItem.push({
                         invoiceId: item,
@@ -1192,12 +1206,12 @@
             }
             var dis_type = $("#discount_type_" + item).val();
 
-            if (parseInt(e.target.tabIndex) + count == 8) {
+            if (tcount == 8) {
                 if (dis_type === "p")
                     $("#discount_type_" + item).val("Percentage");
                 else if (dis_type === "a")
                     $("#discount_type_" + item).val("Amount");
-                else 
+                else
                     $("#discount_type_" + item).val("Percentage");
 
             }
@@ -1206,15 +1220,36 @@
                 nextElement.focus(); // Move focus to the next element
                 nextElement.select(); // Select the text in the input field
             } else {
-                count = count + 1;
-                let nextElement = document.querySelector('[tabindex="' + (parseInt(e.target.tabIndex) + count) + '"]');
+
+                if (e.key === 'ArrowLeft') {
+                    count = count + 1;
+
+                    tcount = parseInt(e.target.tabIndex) - count
+                } else {
+                    count = count + 1;
+
+                    tcount = parseInt(e.target.tabIndex) + count
+
+                }
+                let nextElement = document.querySelector('[tabindex="' + tcount + '"]');
+                console.log(nextElement)
 
                 if (nextElement && !isElementFrozen(nextElement)) {
                     nextElement.focus(); // Move focus to the next element
                     nextElement.select(); // Select the text in the input field
                 } else {
-                    count = count + 1;
-                    let nextElement = document.querySelector('[tabindex="' + (parseInt(e.target.tabIndex) + count) + '"]');
+                    if (e.key === 'ArrowLeft') {
+                        count = count + 1;
+
+                        tcount = parseInt(e.target.tabIndex) - count
+                    } else {
+                        count = count + 1;
+
+                        tcount = parseInt(e.target.tabIndex) + count
+
+                    }
+                    let nextElement = document.querySelector('[tabindex="' + tcount + '"]');
+                    console.log(nextElement)
 
                     if (nextElement && !isElementFrozen(nextElement)) {
                         nextElement.focus(); // Move focus to the next element
